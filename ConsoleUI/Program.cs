@@ -3,6 +3,7 @@ using Business.Concrete;
 using DataAccess.Concrete.EfCarDal;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,13 +14,19 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            Car car = new Car();
-            car.CarName = Console.ReadLine().ToString();
-            car.DailyPrice = Convert.ToDouble(Console.ReadLine());
+            AddingCarTest();
+            // CarTest();
 
             CarManager carManager = new CarManager(new EfCarDal());
-            carManager.Add(car);
+            var result = carManager.GetCarDetails();
 
+            if (result.Success==true)
+            {
+                foreach (var detail in result.Data)
+                {
+                    Console.WriteLine(detail.CarName + " " + detail.BrandName + " " + detail.ColorName + " " + detail.DailyPrice);
+                } 
+            }
             
 
             #region Önceki Ödev
@@ -63,5 +70,39 @@ namespace ConsoleUI
 
         }
 
+        private static void AddingCarTest()
+        {
+            Car car = new Car();
+            car.CarName = Console.ReadLine().ToString();
+            car.DailyPrice = Convert.ToDouble(Console.ReadLine());
+
+            CarManager carManager = new CarManager(new EfCarDal());
+            carManager.Add(car);
+        }
+
+        private static void CarTest()
+        {
+            Car car = new Car
+            {
+                BrandId = 5,
+                ColorId = 3,
+                CarName = "Opel",
+                DailyPrice = 205,
+                ModelYear = new DateTime(2000, 02, 12),
+                Description = "Temiz araç",
+
+            };
+            CarManager carManager = new CarManager(new EfCarDal());
+            carManager.Add(car);
+
+            var updateResult = carManager.GetById(car.Id);
+            updateResult.Data.CarName = "Jeep";
+            updateResult.Data.BrandId = 6;
+            carManager.Update(updateResult.Data);
+
+           var deleteResult = carManager.GetById(car.Id);
+            carManager.Delete(deleteResult.Data);
+
+        }
     }
 }
