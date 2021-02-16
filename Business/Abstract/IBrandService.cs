@@ -1,4 +1,4 @@
-﻿using Core.Result;
+﻿using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore.Update.Internal;

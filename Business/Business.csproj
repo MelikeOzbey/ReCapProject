@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Remove="Abstract\IBrandService.cs~RF14cb51e5.TMP" />
+    <None Remove="Concrete\CarManager.cs~RF8fa6509.TMP" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Result
+namespace Core.Utilities.Result
 {
     public class SuccessDataResult<T> : DataResult<T>
     {

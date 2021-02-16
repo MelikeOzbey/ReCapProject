@@ -11,5 +11,7 @@ namespace Business.Constants
         public static string Deleted = "Kayıt başarılı bir şekilde silindi.";
         public static string Error = "İşlem sırasında hata oluştu!";
         public static string List = "Kayıtlar listendi.";
+        public static string RentedCar = "Araç kiralandı.";
+        public static string RentCarError = "Araç kiralanmaya Uygun Değildir.";
     }
 }

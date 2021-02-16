@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace Core.Result
+namespace Core.Utilities.Result
 {
     public class Result : IResult
     {

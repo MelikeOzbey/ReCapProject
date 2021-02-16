@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Result
+namespace Core.Utilities.Result
 {
-    class ErrorDataResult<T>:DataResult<T>
+    public class ErrorDataResult<T>:DataResult<T>
     {
         public ErrorDataResult(T data, string message) : base(data, false, message)
         {

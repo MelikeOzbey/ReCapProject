@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
-using Core.Result;
+using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;

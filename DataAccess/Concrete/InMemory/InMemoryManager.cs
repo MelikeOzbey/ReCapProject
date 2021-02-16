@@ -64,7 +64,17 @@ namespace DataAccess.Concrete.InMemory
             return _cars.SingleOrDefault(x => x.Id == id);
         }
 
+        public CarDetailDto GetCarDetailById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<CarDetailDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
         {
             throw new NotImplementedException();
         }
