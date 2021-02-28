@@ -13,5 +13,6 @@ namespace Business.Constants
         public static string List = "Kayıtlar listendi.";
         public static string RentedCar = "Araç kiralandı.";
         public static string RentCarError = "Araç kiralanmaya Uygun Değildir.";
+        internal static string CarImagesLimitedExceeded = "Bir arabaya ait eklenebilecek resim limiti aşıldığı için yeni bir resim eklenemiyor..";
     }
 }

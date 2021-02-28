@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccess.Concrete.EfCarDal
+namespace DataAccess.Concrete.EntityFramework
 {
     public class RentACarContext:DbContext
     {
@@ -19,5 +19,6 @@ namespace DataAccess.Concrete.EfCarDal
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Rental> Rentals { get; set; }
+        public DbSet<CarImage> CarImages { get; set; }
     }
 }

@@ -6,7 +6,15 @@
 
   <ItemGroup>
     <None Remove="Abstract\IBrandService.cs~RF14cb51e5.TMP" />
+    <None Remove="Abstract\ICarImagesService.cs~RF1876f36.TMP" />
+    <None Remove="Concrete\CarImageManager.cs~RF5a3d7c7.TMP" />
     <None Remove="Concrete\CarManager.cs~RF8fa6509.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
+    <PackageReference Include="FluentValidation" Version="9.5.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Abstract\ICarImageDal.cs~RF17fc84a.TMP" />
     <None Remove="Concrete\EntityFramework\EfRentalDal.cs~RF1281b276.TMP" />
   </ItemGroup>
 
