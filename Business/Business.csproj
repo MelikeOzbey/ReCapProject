@@ -9,12 +9,16 @@
     <None Remove="Abstract\ICarImagesService.cs~RF1876f36.TMP" />
     <None Remove="Concrete\CarImageManager.cs~RF5a3d7c7.TMP" />
     <None Remove="Concrete\CarManager.cs~RF8fa6509.TMP" />
+    <None Remove="Concrete\UserManager.cs~RF101fc6f.TMP" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
     <PackageReference Include="FluentValidation" Version="9.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>

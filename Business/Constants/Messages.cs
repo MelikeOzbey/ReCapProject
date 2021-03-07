@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -14,5 +15,6 @@ namespace Business.Constants
         public static string RentedCar = "Araç kiralandı.";
         public static string RentCarError = "Araç kiralanmaya Uygun Değildir.";
         internal static string CarImagesLimitedExceeded = "Bir arabaya ait eklenebilecek resim limiti aşıldığı için yeni bir resim eklenemiyor..";
+        internal static string AuthorizationDenied = "Yetkiniz yoktur";
     }
 }
