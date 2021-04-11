@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
         public IActionResult GetAll()
         {
             var result = _rentalService.GetAll();
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
@@ -41,19 +41,42 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpGet("checkcaravailable")]
-        public IActionResult CheckCarAvailable(int id)
+        public IActionResult CheckCarAvailable(int id, string date)
         {
-            var result = _rentalService.CheckCarAvailable(id);
+            var newDate = Convert.ToDateTime(date);
+            var result = _rentalService.CheckCarAvailable(id, newDate);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("checkcarfindexavailable")]
+        public IActionResult CheckFindexOfUserIsOK(int id,int userId)
+        {
+           
+            var result = _rentalService.CheckFindexOfUserIsOK(id, userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getrentaldetails")]
+        public IActionResult GetRentalDetails()
+        {
+            var result = _rentalService.GetRentalDetails();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result.Message);
         }
-        [HttpGet("getrentaldetails")]
-        public IActionResult GetRentalDetails(Expression<Func<Rental, bool>> filter = null)
+        [HttpGet("getrentaldetailsbyuserid")]
+        public IActionResult GetRentalDetailsByUserId(int userId)
         {
-            var result = _rentalService.GetRentalDetails(filter);
+            var result = _rentalService.GetRentalDetailsByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);
@@ -64,7 +87,7 @@ namespace WebAPI.Controllers
         public IActionResult Add(Rental rental)
         {
             var result = _rentalService.Add(rental);
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }

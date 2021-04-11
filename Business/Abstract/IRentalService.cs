@@ -15,8 +15,9 @@ namespace Business.Abstract
         IResult Add(Rental rental);
         IResult Update(Rental rental);
         IResult Delete(Rental rental);
-
-        IDataResult<Rental> CheckCarAvailable(int id);
-        IDataResult<List<RentDetailDto>> GetRentalDetails(Expression<Func<Rental,bool>> filter=null);
+        IResult CheckFindexOfUserIsOK(int carId, int userId);
+        IResult CheckCarAvailable(int id, DateTime date);
+        IDataResult<List<RentDetailDto>> GetRentalDetails();
+        IDataResult<List<RentDetailDto>> GetRentalDetailsByUserId(int userId);
     }
 }

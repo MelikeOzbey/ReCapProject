@@ -16,5 +16,8 @@ namespace Business.Constants
         public static string RentCarError = "Araç kiralanmaya Uygun Değildir.";
         internal static string CarImagesLimitedExceeded = "Bir arabaya ait eklenebilecek resim limiti aşıldığı için yeni bir resim eklenemiyor..";
         internal static string AuthorizationDenied = "Yetkiniz yoktur";
+        internal static string CarNotAvailable = "Araç kiralanmaya uygun değildir.";
+        internal static string CarAvailable = "Araç kiralanmaya uygundur.";
+        internal static string CarFindexAvailable = "Findex puanınız aracı kiralamak için yetersizdir.";
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Entities.Concrete;
+using Core.Utilities.Business;
 using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -14,10 +16,12 @@ namespace Business.Concrete
     public class RentalManager:IRentalService
     {
         IRentalDal _rentalDal;
+        IUserDal _userDal;
 
-        public RentalManager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal, IUserDal userDal)
         {
             _rentalDal = rentalDal;
+            _userDal = userDal;
         }
 
         public IResult Add(Rental rental)
@@ -27,15 +31,27 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentedCar);
         }
 
-        public IDataResult<Rental> CheckCarAvailable(int id)
+        public IResult CheckCarAvailable(int id, DateTime date)
         {
-            var carInfo = _rentalDal.Get(c=>c.CarId==id);
-            if(carInfo !=null && carInfo.ReturnDate==null)
+            IResult result = BusinessRules.Run(CheckIfCarIsAvailable(id, date));
+            if (result != null)
             {
-                return new ErrorDataResult<Rental>(carInfo,Messages.RentCarError);
+                return result;
             }
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id));
+
+            return new SuccessResult(Messages.CarAvailable);
         }
+        public IResult CheckFindexOfUserIsOK(int carId, int userId)
+        {
+            IResult result = BusinessRules.Run(CheckIfFindexOfUserIsAvailable(carId, userId));
+            if (result != null)
+            {
+                return result;
+            }
+
+            return new SuccessResult(Messages.CarAvailable);
+        }
+
 
         public IResult Delete(Rental rental)
         {
@@ -53,15 +69,42 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
-        public IDataResult<List<RentDetailDto>> GetRentalDetails(Expression<Func<Rental, bool>> filter = null)
+        public IDataResult<List<RentDetailDto>> GetRentalDetails()
         {
-            return new SuccessDataResult<List<RentDetailDto>>(_rentalDal.GetRentDetails(filter));
+            return new SuccessDataResult<List<RentDetailDto>>(_rentalDal.GetRentDetails());
+        }
+
+        public IDataResult<List<RentDetailDto>> GetRentalDetailsByUserId(int userId)
+        {
+            return new SuccessDataResult<List<RentDetailDto>>(_rentalDal.GetRentalDetailsByUserId(userId));
         }
 
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.Updatetd);
+        }
+
+        private IResult CheckIfCarIsAvailable(int carId, DateTime date)
+        {
+            var car = _rentalDal.GetRentalDetailsByCarId(x=>x.CarId==carId);
+            if(car!=null && car.ReturnDate!=null && car.ReturnDate> date)
+            {
+                return new ErrorResult(Messages.CarNotAvailable);
+            }
+            return new SuccessResult();
+
+        }
+        private IResult CheckIfFindexOfUserIsAvailable(int carId, int userId)
+        {
+            var car = _rentalDal.GetRentalDetailsByCarId(x => x.CarId == carId);
+            var user = _userDal.Get(x=>x.Id==userId);
+            if (car.FindexNo>user.FindexNo)
+            {
+                return new ErrorResult(Messages.CarFindexAvailable);
+            }
+            return new SuccessResult();
+
         }
     }
 }

@@ -9,6 +9,7 @@
     <None Remove="Abstract\ICarImagesService.cs~RF1876f36.TMP" />
     <None Remove="Concrete\CarImageManager.cs~RF5a3d7c7.TMP" />
     <None Remove="Concrete\CarManager.cs~RF8fa6509.TMP" />
+    <None Remove="Concrete\CustomerManager.cs~RF39c474b.TMP" />
     <None Remove="Concrete\UserManager.cs~RF101fc6f.TMP" />
   </ItemGroup>
 
