@@ -8,10 +8,11 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IRentalDal:IEntityRepository<Rental>
+    public interface IRentalDal : IEntityRepository<Rental>
     {
         List<RentDetailDto> GetRentDetails();
-        RentDetailDto GetRentalDetailsByCarId(Expression<Func<Rental, bool>> filter = null);
-       List<RentDetailDto> GetRentalDetailsByUserId(int userId);
+        RentDetailDto GetRentalDetailsByCarId(int carId);
+        List<RentDetailDto> GetRentalDetailsByUserId(int userId);
+        List<RentDetailDto> GetPaidRentalDetailsByUserId(int userId);
     }
 }

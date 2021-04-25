@@ -17,11 +17,13 @@ namespace Business.Concrete
     {
         IRentalDal _rentalDal;
         IUserDal _userDal;
+        ICarDal _carDal;
 
-        public RentalManager(IRentalDal rentalDal, IUserDal userDal)
+        public RentalManager(IRentalDal rentalDal, IUserDal userDal, ICarDal carDal)
         {
             _rentalDal = rentalDal;
             _userDal = userDal;
+            _carDal = carDal;
         }
 
         public IResult Add(Rental rental)
@@ -79,6 +81,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<RentDetailDto>>(_rentalDal.GetRentalDetailsByUserId(userId));
         }
 
+        public IDataResult<RentDetailDto> GetRentalDetailsByCarId(int carId)
+        {
+            return new SuccessDataResult<RentDetailDto>(_rentalDal.GetRentalDetailsByCarId(carId));
+        }
+
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
@@ -87,7 +94,7 @@ namespace Business.Concrete
 
         private IResult CheckIfCarIsAvailable(int carId, DateTime date)
         {
-            var car = _rentalDal.GetRentalDetailsByCarId(x=>x.CarId==carId);
+            var car = _rentalDal.GetRentalDetailsByCarId(carId);
             if(car!=null && car.ReturnDate!=null && car.ReturnDate> date)
             {
                 return new ErrorResult(Messages.CarNotAvailable);
@@ -97,7 +104,7 @@ namespace Business.Concrete
         }
         private IResult CheckIfFindexOfUserIsAvailable(int carId, int userId)
         {
-            var car = _rentalDal.GetRentalDetailsByCarId(x => x.CarId == carId);
+            var car = _carDal.Get(x=>x.Id==carId);
             var user = _userDal.Get(x=>x.Id==userId);
             if (car.FindexNo>user.FindexNo)
             {
@@ -105,6 +112,11 @@ namespace Business.Concrete
             }
             return new SuccessResult();
 
+        }
+
+        public IDataResult<List<RentDetailDto>> GetPaidRentalDetailsByUserId(int userId)
+        {
+            return new SuccessDataResult<List<RentDetailDto>>(_rentalDal.GetPaidRentalDetailsByUserId(userId));
         }
     }
 }

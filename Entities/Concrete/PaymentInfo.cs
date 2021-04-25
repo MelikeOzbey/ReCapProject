@@ -12,14 +12,12 @@ namespace Entities.Concrete
         public string UserLastName { get; set; }
         public string UserEmail { get; set; }
         public string UserAddress { get; set; }
-        public bool BoSaveInfo { get; set; }
-        public bool BoCreditType { get; set; }
-        public bool BoDebitType { get; set; }
+        public string StCreditType { get; set; }
         public string CardUserName { get; set; }
         public string CardNumber { get; set; }
-        public int CardExpMonth { get; set; }
-        public int CardExpYear { get; set; }
-        public int CardCvv { get; set; }
-        public int UserId { get; set; }
+        public int? CardExpMonth { get; set; }
+        public int? CardExpYear { get; set; }
+        public int? CardCvv { get; set; }
+        public int? UserId { get; set; }
     }
 }

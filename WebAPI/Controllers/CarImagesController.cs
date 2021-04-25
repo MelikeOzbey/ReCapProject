@@ -27,14 +27,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll([FromForm(Name =("carId"))] int carId )
+        public IActionResult GetAll(int carId )
         {
             var result = _carImageService.GetAll(c=>c.CarId==carId);
             if(result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("add")]
@@ -43,9 +43,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.Add(file,carImage);
             if(result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
         [HttpPost("update")]
         public IActionResult Update([FromForm(Name=("Image"))] IFormFile file, [FromForm(Name =("Id"))] int id)
@@ -54,9 +54,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.Update(file, resultData);
             if(result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         
         }
 
@@ -67,9 +67,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.Delete(resultData);
             if(result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getimagesbycar")]
@@ -78,9 +78,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.GetImagesByCar(carId);
             if(result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
 

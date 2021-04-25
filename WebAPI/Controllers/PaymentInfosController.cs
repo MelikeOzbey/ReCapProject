@@ -13,6 +13,12 @@ namespace WebAPI.Controllers
     public class PaymentInfosController : Controller
     {
         IPaymentInfoService _paymentInfoService;
+
+        public PaymentInfosController(IPaymentInfoService paymentInfoService)
+        {
+            _paymentInfoService = paymentInfoService;
+        }
+
         public IActionResult Index()
         {
             return View();

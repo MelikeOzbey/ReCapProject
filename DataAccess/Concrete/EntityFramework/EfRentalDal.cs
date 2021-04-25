@@ -22,7 +22,7 @@ namespace DataAccess.Concrete.EntityFramework
                              join c in context.Cars on r.CarId equals c.Id
                              join cu in context.Customers on r.CustomerId equals cu.Id
                              join u in context.Users on r.UserId equals u.Id
-                             where r.UserId == userId
+                             where r.UserId == userId orderby r.RentDate descending
                              select new RentDetailDto
                              {
                                  CarName = c.CarName,
@@ -44,13 +44,15 @@ namespace DataAccess.Concrete.EntityFramework
 
             }
         }
-        public RentDetailDto GetRentalDetailsByCarId(Expression<Func<Rental, bool>> filter = null)
+        public RentDetailDto GetRentalDetailsByCarId(int carId)
         {
             using (RentACarContext context = new RentACarContext())
             {
                 var result = from r in context.Rentals
                              join c in context.Cars on r.CarId equals c.Id
                              join cu in context.Customers on r.CustomerId equals cu.Id
+                             join u in context.Users on r.UserId equals u.Id
+                             where r.CarId==carId
                              orderby r.RentDate descending
                              select new RentDetailDto
                              {
@@ -60,6 +62,13 @@ namespace DataAccess.Concrete.EntityFramework
                                  ReturnDate = r.ReturnDate,
                                  CarId = c.Id,
                                  Id = r.Id,
+                                 UserId = r.UserId,
+                                 UserName = u.FirstName + " " + u.LastName,
+                                 StFirstCarImage = context.CarImages.FirstOrDefault(t => t.CarId == c.Id && t.BoFirst == true).ImagePath,
+                                 DailyPrice = c.DailyPrice,
+                                 InTotalDays = r.InTotalDays,
+                                 FlTotalPrice = r.FlTotalPrice,
+                                 BoPaid = r.BoPaid,
                                  FindexNo = c.FindexNo
                              };
                 return result.FirstOrDefault();
@@ -94,6 +103,37 @@ namespace DataAccess.Concrete.EntityFramework
                                  BoPaid = r.BoPaid,
                                  FindexNo = c.FindexNo,
                                  BrandName=b.BrandName
+                             };
+                return result.ToList();
+
+            }
+        }
+        public List<RentDetailDto> GetPaidRentalDetailsByUserId(int userId)
+        {
+            using (RentACarContext context = new RentACarContext())
+            {
+                var result = from r in context.Rentals
+                             join c in context.Cars on r.CarId equals c.Id
+                             join cu in context.Customers on r.CustomerId equals cu.Id
+                             join u in context.Users on r.UserId equals u.Id
+                             where r.UserId == userId && r.BoPaid==false
+                             orderby r.RentDate descending
+                             select new RentDetailDto
+                             {
+                                 CarName = c.CarName,
+                                 CompanyName = cu.CompanyName,
+                                 RentDate = r.RentDate,
+                                 ReturnDate = r.ReturnDate,
+                                 CarId = c.Id,
+                                 Id = r.Id,
+                                 UserId = r.UserId,
+                                 UserName = u.FirstName + " " + u.LastName,
+                                 StFirstCarImage = context.CarImages.FirstOrDefault(t => t.CarId == c.Id && t.BoFirst == true).ImagePath,
+                                 DailyPrice = c.DailyPrice,
+                                 InTotalDays = r.InTotalDays,
+                                 FlTotalPrice = r.FlTotalPrice,
+                                 BoPaid = r.BoPaid,
+                                 FindexNo = c.FindexNo
                              };
                 return result.ToList();
 
